@@ -76,6 +76,8 @@ flutter:
   fonts:
      - family: Whitney
        fonts:
+          - asset: assets/fonts/whitneysemibold.otf
+            weight: 400
           - asset: assets/fonts/whitneylightitalic.otf
             style: italic
           - asset: assets/fonts/whitneybold.otf
