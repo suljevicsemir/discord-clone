@@ -40,6 +40,10 @@ class Palette {
         )
       ),
 
+      iconTheme: const IconThemeData(
+        color: Colors.grey
+      )
+
     );
   }
 

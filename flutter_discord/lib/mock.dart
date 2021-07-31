@@ -6,6 +6,8 @@ import 'package:flutter_discord/themes/palette.dart';
 
 class Mock extends StatefulWidget {
 
+  static const String route = '/';
+
   const Mock({
     Key? key
 }): super(key: key);
@@ -17,11 +19,17 @@ class Mock extends StatefulWidget {
 class _MockState extends State<Mock> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Palette.discordLightGray,
       body: SafeArea(
         child: Center(
-          child: Text("Welcome", style: TextStyle(fontFamily: "Whitney", color: Colors.white, fontWeight: FontWeight.w700, letterSpacing: 1.0, fontSize: 18)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.call),
+              Icon(Icons.videocam)
+            ],
+          )
         ),
       ),
     );
