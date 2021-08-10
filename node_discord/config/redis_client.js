@@ -11,7 +11,7 @@ const hmsetAsync   = promisify(redisClient.hmset).bind(redisClient);
 const getDiscordAccount = async function(id) {
     console.log("Fetching account " + id + " from Redis.");
     try {
-        const account = await hgetallAsync("discordaccounts" + id);
+        const account = await hgetallAsync("discord_accounts" + id);
         return account;
     }
     catch(err) {
@@ -24,7 +24,7 @@ const getDiscordAccount = async function(id) {
 const setDiscordAccount = async function(account) {
     console.log("Setting account " + " in Redis");
     try {
-        const account = await hmsetAsync(account);
+        const account = await hmsetAsync("discord_accounts" + account.id, account);
         return account;
     }
     catch(err) {
