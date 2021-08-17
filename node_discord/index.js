@@ -11,19 +11,19 @@ const redisClient = require("./config/redis_client");
 
 const SERVER_PORT = process.env.PORT || 4000;
 
-
+const accountRoutes = require("./routes/discord_accounts");
 
 
 var app = express();
 app.use(express.static("public"));
-
+app.use(express.json());
 
 var server = app.listen(SERVER_PORT, () => {
     console.log("Listening to requests on port: " + SERVER_PORT.toString() + " in " + process.env.NODE_ENV + " mode.");
     connectDB();
 
-    //setup accounts routes
-    //app.use("discord_accounts")
+    
+    app.use("/discord_accounts", accountRoutes);
 });
 
 

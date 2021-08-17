@@ -21,22 +21,39 @@ const getDiscordAccount = async function(id) {
 }
 
 // test are fields neccessary
-const setDiscordAccount = async function(account) {
-    console.log("Setting account " + " in Redis");
+const setDiscordAccount = async function(mongoAccount) {
+    console.log("Setting account " + mongoAccount._id + " in Redis");
     try {
-        const account = await hmsetAsync("discord_accounts" + account.id, account);
-        return account;
+        let account = {
+            "firstName" : mongoAccount.firstName,
+            "lastName" : mongoAccount.lastName,
+            "email"    : mongoAccount.email,
+            "hasProfilePicture" : mongoAccount.hasProfilePicture
+        }
+        if( mongoAccount.birthday !== undefined) {
+            account.birthday = mongoAccount.birthday.toISOString()
+        }
+        if( mongoAccount.profilePictureUrl !== undefined) {
+            account.profilePictureUrl = mongoAccount.profilePictureUrl
+        }
+        if( mongoAccount.about !== undefined) {
+            account.about = mongoAccount.about
+        }   
+
+        const redisAccount = await hmsetAsync("discord_accounts" + mongoAccount._id, account);
+        return redisAccount;
     }
     catch(err) {
-        console.log("Error setting account " + account.id + " in Redis.");
+        console.log("Error setting account " + mongoAccount.id + " in Redis.");
+        console.log(err);
         return null;
     }
 }
 
 module.exports = {
-    getDiscordAccount: getDiscordAccount,
-    setDiscordAccount: setDiscordAccount
-}
+    getDiscordAccount,
+    setDiscordAccount
+}   
 
 
 

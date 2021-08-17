@@ -1,8 +1,9 @@
 
 
-
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const {isEmail} = require("validator");
 
 const discordAccountSchema = new Schema({
     firstName: {
@@ -19,7 +20,8 @@ const discordAccountSchema = new Schema({
     },
     email: {
         type: String,
-        required: true   
+        required: true,
+        validate: [isEmail, "Please enter a valid email"]
     },
     password: {
         type:String,
@@ -38,9 +40,21 @@ const discordAccountSchema = new Schema({
         type: String,
         required: false,
         maxlength: [100, "About section must contain maximum 100 characters."]
+    },
+    hasProfilePicture: {
+        type: Boolean,
+        required: true
     }
 }, {timestamps: true});
 
-const DiscordAccount = mongoose.model("DiscordAccount", discordAccountSchema);
+
+discordAccountSchema.pre("save", async function(next) {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+})
+
+const DiscordAccount = mongoose.model("Discord_Accounts", discordAccountSchema);
+
 
 module.exports = DiscordAccount;
