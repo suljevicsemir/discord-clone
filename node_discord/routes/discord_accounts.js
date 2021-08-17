@@ -54,7 +54,6 @@ router.get("/:id", async (req, res) => {
 // insert new account
 router.post("/", async (req, res) => {
     try {
-
         const discordAccount = DiscordAccount(req.body);
         const savedAccount = await discordAccount.save();
         const redisAccount = await redisClient.setDiscordAccount(savedAccount);
@@ -73,28 +72,6 @@ router.delete("/:id", async (req, res) => {
     }
     catch(err) {
         
-    }
-});
-
-
-router.get("/kurcinamoja/provjera", (req, res) => {
-    try {
-        const token = jwt.verify(req.headers.authorization, process.env.SECRET);
-        res.json(token);
-    }
-    catch(err) {
-        res.send(err);
-    }
-});
-
-
-router.get("/kurcinamoja/token", (req, res) => {
-    try {
-        const token = jwt.sign({id: req.body.id} , process.env.SECRET);
-        res.send(token);
-    }
-    catch(err) {
-        res.send(err);
     }
 });
 
