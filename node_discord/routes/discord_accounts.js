@@ -84,9 +84,9 @@ router.put("/:id", async (req, res) => {
         if(!token) {
             return res.status(403).json({"error" : "User not authenticated!"});
         }
-        console.log(`Received token: ${token}`);
+        
         const decodedToken = jwt.verify(token, process.env.SECRET);
-        console.log(decodedToken);
+        
         if( decodedToken._id != req.params.id) {
             return res.status(403).json({"error" : "JWT not valid!"});
         }
@@ -102,7 +102,7 @@ router.put("/:id", async (req, res) => {
 
         let account = req.body;
         account._id = req.params.id;
-        console.log(account)
+        
         await redisClient.updateDiscordAccount(account);
     
         res.json(updatedAccount);
