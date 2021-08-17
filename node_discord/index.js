@@ -22,7 +22,7 @@ var server = app.listen(SERVER_PORT, () => {
     console.log("Listening to requests on port: " + SERVER_PORT.toString() + " in " + process.env.NODE_ENV + " mode.");
     connectDB();
 
-    
+
     app.use("/discord_accounts", accountRoutes);
 });
 
