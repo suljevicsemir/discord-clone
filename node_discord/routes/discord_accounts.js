@@ -11,8 +11,17 @@ const jwt = require("jsonwebtoken");
 router.get("/", async (req, res) => {
     try {
         
+        const projection = {
+            _id: 0,
+            firstName: 1,
+            lastName: 1,
+            about: 1,
+            hasProfilePicture: 1,
+            profilePictureUrl: 1
+        }
 
-       const x = await mongoose.connection.db.collection("discord_accounts").find({}).toArray();
+       const x = await mongoose.connection.db.collection("discord_accounts").find({})
+       .project(projection).toArray();
 
         /*mongoose.connection.db.collection("discord_accounts").find({
             "firstName" : /$/,
@@ -34,13 +43,15 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         let cachedAccount = await redisClient.getDiscordAccount(req.params.id);
-
+        
         if( cachedAccount != null) {
             cachedAccount.fromCache = true;
             return res.status(200).json(cachedAccount);
             
         }
-        
+
+       
+
         cachedAccount = await DiscordAccount.findById(req.params.id);
         cachedAccount.fromCache = false;
         const resStatus = cachedAccount == null ? 200 : 404;

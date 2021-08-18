@@ -28,7 +28,6 @@ const setDiscordAccount = async function(mongoAccount) {
             "id"                : mongoAccount._id.toString(),
             "firstName"         : mongoAccount.firstName,
             "lastName"          : mongoAccount.lastName,
-            "email"             : mongoAccount.email,
             "hasProfilePicture" : mongoAccount.hasProfilePicture.toString()
         }
         if( mongoAccount.birthday !== undefined) {
