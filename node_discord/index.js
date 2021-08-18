@@ -1,7 +1,7 @@
 
 const express = require("express");
 const socketModule = require("socket.io");
-
+const admin = require("firebase-admin");
 const dotenv = require("dotenv");
 dotenv.config({path: "./config/config.env"});
 
@@ -22,7 +22,11 @@ var server = app.listen(SERVER_PORT, () => {
     console.log("Listening to requests on port: " + SERVER_PORT.toString() + " in " + process.env.NODE_ENV + " mode.");
     connectDB();
 
+    admin.initializeApp({
+        credential: admin.credential.applicationDefault()
+    })
 
+    
     app.use("/discord_accounts", accountRoutes);
 });
 
