@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_discord/themes/palette.dart';
 
-import 'package:socket_io_client/socket_io_client.dart' as io;
-
 class Mock extends StatefulWidget {
 
   static const String route = '/';
@@ -19,29 +17,6 @@ class Mock extends StatefulWidget {
 }
 
 class _MockState extends State<Mock> {
-
-  io.Socket socket = io.io("http://10.0.2.2:4000", {
-    'transports': ['websocket'],
-    "autoConnect" : false
-  });
-
-
-  @override
-  void initState() {
-    super.initState();
-    socket.on("connect", (data) {
-      socket.emit("login", {
-        'userId' : "this is id",
-        "jwt"    : "this is jwt"
-      });
-    });
-
-
-
-    socket.connect();
-
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +34,7 @@ class _MockState extends State<Mock> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          socket.disconnect();
+
         },
       ),
     );

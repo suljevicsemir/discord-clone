@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_discord/mock.dart';
+import 'package:flutter_discord/screens/chat/chat_page.dart';
 import 'package:flutter_discord/themes/palette.dart';
+import 'package:flutter_discord/utils/discord_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      initialRoute: Mock.route,
+      initialRoute: ChatPage.route,
       theme: Palette.darkMode(),
-      home: const Mock(),
+      onGenerateRoute: DiscordRoutes.onGenerateRoute,
     );
   }
 }
