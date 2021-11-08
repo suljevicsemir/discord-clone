@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_discord/screens/chat/chat_page.dart';
+import 'package:flutter_discord/screens/home/home_page.dart';
 import 'package:flutter_discord/themes/palette.dart';
 import 'package:flutter_discord/utils/discord_router.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      initialRoute: ChatPage.route,
+      initialRoute: HomePage.route,
       theme: Palette.darkMode(),
       onGenerateRoute: DiscordRoutes.onGenerateRoute,
     );
